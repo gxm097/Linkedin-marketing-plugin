@@ -4,8 +4,8 @@
   "version": "2.0.0",
   "description": "Weekly LinkedIn carousel posts: researches your company and industry, designs the slides in Canva, writes the copy, and hands you a ready-to-upload PDF.",
   "author": {
-    "name": "Don McCraw",
-    "email": "don.mccraw@gmail.com"
+    "name": "Gavin McCraw",
+    "email": "gavinmccraw.web@gmail.com"
   },
   "keywords": ["linkedin", "marketing", "social media", "content", "canva", "carousel"],
   "userConfig": {

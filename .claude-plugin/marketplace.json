@@ -1,8 +1,8 @@
 {
-  "name": "don-marketing-tools",
+  "name": "Gavins-marketing-tools",
   "owner": {
-    "name": "Don McCraw",
-    "email": "don.mccraw@gmail.com"
+    "name": "Gavin McCraw",
+    "email": "gavinmccraw.web@gmail.com"
   },
   "metadata": {
     "description": "Marketing plugins for Claude Code."
@@ -12,7 +12,7 @@
       "name": "linkedin-marketing",
       "source": "./linkedin-marketing",
       "description": "Weekly LinkedIn carousel posts: researches your company and industry, designs the slides in Canva, writes the copy, and hands you a ready-to-upload PDF.",
-      "version": "2.0.0"
+      "version": "1.0.0"
     }
   ]
 }

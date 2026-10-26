@@ -1,0 +1,18 @@
+{
+  "name": "don-marketing-tools",
+  "owner": {
+    "name": "Don McCraw",
+    "email": "don.mccraw@gmail.com"
+  },
+  "metadata": {
+    "description": "Marketing plugins for Claude Code."
+  },
+  "plugins": [
+    {
+      "name": "linkedin-marketing",
+      "source": "./linkedin-marketing",
+      "description": "Weekly LinkedIn carousel posts: researches your company and industry, designs the slides in Canva, writes the copy, and hands you a ready-to-upload PDF.",
+      "version": "2.0.0"
+    }
+  ]
+}

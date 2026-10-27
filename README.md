@@ -16,13 +16,6 @@ anywhere — the plugin never posts to LinkedIn on your behalf.
 
 You'll be asked for your company name, website, and audience during install.
 
-Testing a local copy instead:
-
-```
-/plugin marketplace add ./linkedin-marketing-plugin
-/plugin install linkedin-marketing@don-marketing-tools
-```
-
 ## Set up (once, about five minutes)
 
 1. **Connect Canva.** Run `/mcp`, choose `plugin:linkedin-marketing:canva`, and
@@ -104,7 +97,7 @@ posts** or **Start the post automatically when due**.
 
 - **Canva account** — Free works; Pro unlocks Brand Templates
 - **Web search enabled** in Claude Code, for the research step
-- **Python 3 with Pillow** for the PDF step (`python3 -m pip install Pillow`)
+- **Python3 with Pillow** for the PDF step (`python3 -m pip install Pillow`)
 
 ## If something goes wrong
 

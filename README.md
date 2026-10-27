@@ -10,7 +10,7 @@ anywhere — the plugin never posts to LinkedIn on your behalf.
 ## Install
 
 ```
-/plugin marketplace add don-mccraw/linkedin-marketing-plugin
+/plugin marketplace add gxm097/linkedin-marketing-plugin
 /plugin install linkedin-marketing@don-marketing-tools
 ```
 

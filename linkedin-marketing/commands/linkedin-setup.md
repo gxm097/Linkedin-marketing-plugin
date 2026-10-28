@@ -1,6 +1,6 @@
 ---
 description: Set up this project for LinkedIn marketing — write marketing-config.md and check the Canva connection
-allowed-tools: Read, Write, Edit, Glob, Bash, WebFetch, mcp__plugin_linkedin-marketing_canva__list-brand-kits, mcp__plugin_linkedin-marketing_canva__search-brand-templates
+allowed-tools: Read, Write, Edit, Glob, Bash, WebFetch, Skill, mcp__plugin_linkedin-marketing_canva__list-brand-kits, mcp__plugin_linkedin-marketing_canva__search-brand-templates, mcp__plugin_linkedin-marketing_linkedin__get_my_profile, mcp__linkedin-dev__get_my_profile
 ---
 
 Set up the LinkedIn marketing plugin for this project.
@@ -80,15 +80,44 @@ in: `yes`, plus any extra terms, the check cadence, and the comment cap it gave
 you. Otherwise leave **Watch for mentions** as `no` and say one line about what
 it would do — don't talk me into it.
 
-Turning it on needs the comment tool, which is **not** in the published
-`mcp-server-linkedin` package. If I want mentions, tell me that
-`/linkedin-marketing:mention-comments` needs the local clone registered as an
-MCP server, and that it will tell me how when I run it.
+## 6. Sign me in to LinkedIn now
 
-## 6. Tell me what's next
+Do this even if mentions are off; the carousel's research does not need
+LinkedIn, but everything else does, and it is better to get it over with here
+than halfway through a carousel.
 
-Show me the filled-in file, then tell me to run `/linkedin-marketing:weekly-carousel`
-when I'm ready. Mention that I'll get a reminder here whenever the next one is due.
+Call `get_my_profile` on the plugin's LinkedIn server. It is read-only. One of
+three things happens:
+
+- **It returns a profile** → say whose account it is, in one line. Done.
+- **A browser window opens** → tell me to sign in there, and that LinkedIn may
+  ask me to confirm in its mobile app or solve a captcha. Both are mine to do in
+  that window. Wait for me.
+- **The tool is not there at all** → the plugin's server did not start. Check
+  `uv --version`; if `uv` was installed after this session began, tell me to
+  restart Claude Code. If `uv` is fine, the first run builds the server from
+  source and takes minutes — tell me to check `/mcp`.
+
+Never offer to work around this with another browser tool.
+
+## 7. Tell me what's next
+
+Show me the filled-in file. Tell me to run `/linkedin-marketing:weekly-carousel`
+when I'm ready, and that I'll get a reminder here whenever the next one is due.
+
+**If mentions are on, offer to run the first check now** —
+`/linkedin-marketing:mention-comments` — and wait for me to say yes. Offer it;
+do not start it. Two reasons it is an offer and not a step:
+
+- The config you just wrote is the input to that search. I have not read it yet,
+  and the watch terms and the **Never comment on** list are the two fields most
+  likely to be wrong on a first pass.
+- A comment is a public write to a real account. Every comment needs my explicit
+  approval whenever the check runs, and that does not change because setup is
+  the thing that launched it.
+
+If I say yes, run it. If I don't, say the reminder will offer again when it is
+due.
 
 ---
 

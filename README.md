@@ -123,19 +123,16 @@ approve, because LinkedIn restricts accounts that comment at volume.
 What goes out is appended to `mentions-log.md` in your project, which is also how
 the next run knows not to comment on the same post twice.
 
-### It needs the comment tool
+### The LinkedIn server is included
 
-**The published `mcp-server-linkedin` package cannot comment on posts.** Every
-tool in it is read-only except `send_message` and `connect_with_person`. The
-comment tool lives in a local clone of that server, so this command only works
-once the clone is registered:
+There is nothing to install and no second plugin to add. The plugin ships its
+own LinkedIn server and Claude Code starts it for you — `uv` fetches it on first
+use, which is why `uv` is the one prerequisite.
 
-```
-claude mcp add linkedin-dev -- uv run --directory <path-to>/linkedin-mcp-server mcp-server-linkedin --transport stdio
-```
-
-Restart the session afterwards so the tool appears. If it isn't there, the
-command stops and tells you this instead of trying anything else.
+**Don't install `linkedin-mcp-server` separately, and disable it if you already
+have it.** Two copies drive the same browser profile and contend for it. The
+published package also cannot comment on posts: every tool in it is read-only
+except `send_message` and `connect_with_person`, so it is not a substitute.
 
 ### Why it double-checks every link
 
@@ -208,10 +205,11 @@ so if a run was interrupted mid-export, just run it again.
 and slide script were still written. Fix the connection and re-run, or build the
 slides by hand from the script in `post.md`.
 
-**"The comment tool isn't available"** — `/mention-comments` needs the local
-clone of the LinkedIn MCP server registered; the published package has no
-comment tool. See "It needs the comment tool" above, and restart the session
-after adding it.
+**"The comment tool isn't available"** — the plugin's own LinkedIn server didn't
+start. Check `uv --version`, and restart Claude Code if you installed `uv` after
+starting it. If `uv` is fine, the first run builds the server from source and
+takes a few minutes — run `/mcp` and look at
+`plugin:linkedin-marketing:linkedin`.
 
 **A mention was found but not commented on** — the command drops any link it
 can't match to the post it was meant for, which is deliberate; an unverified

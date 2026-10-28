@@ -1,30 +1,32 @@
 ---
 description: Find recent LinkedIn posts that mention the company, verify each one, and comment on the ones I approve
-allowed-tools: Read, Write, Edit, Glob, Bash, Task, mcp__linkedin-dev__comment_on_post, mcp__linkedin-dev__search_posts, mcp__linkedin-dev__get_company_posts, mcp__plugin_linkedin-mcp-server_linkedin__comment_on_post, mcp__plugin_linkedin-mcp-server_linkedin__search_posts, mcp__plugin_linkedin-mcp-server_linkedin__get_company_posts
+allowed-tools: Read, Write, Edit, Glob, Bash, Task, mcp__plugin_linkedin-marketing_linkedin__comment_on_post, mcp__plugin_linkedin-marketing_linkedin__search_posts, mcp__plugin_linkedin-marketing_linkedin__get_company_posts, mcp__linkedin-dev__comment_on_post, mcp__linkedin-dev__search_posts, mcp__linkedin-dev__get_company_posts
 ---
 
 Find posts mentioning the company and comment on the ones I approve.
 
 ## 0. Check the comment tool is actually there
 
-`comment_on_post` is **not** in the published `mcp-server-linkedin` package. It
-exists only in the local clone, so the tool is named for whichever server is
-wired up — `mcp__linkedin-dev__comment_on_post` if the clone is registered as
-`linkedin-dev`, or `mcp__plugin_linkedin-mcp-server_linkedin__comment_on_post`
-once the clone is what the plugin runs.
+The plugin ships its own LinkedIn server, so the tool should be
+`mcp__plugin_linkedin-marketing_linkedin__comment_on_post`. On a machine with
+the dev clone registered it is `mcp__linkedin-dev__comment_on_post` instead.
+Use whichever you find, and say which one you are using.
 
-If neither is available, stop. Tell me the clone is not wired into this session
-and give me the command to add it:
+If **neither** is there, stop — do not fall back to any other browser tool to
+post a comment. The plugin's own server did not start, which is almost always
+one of:
 
-```
-claude mcp add linkedin-dev -- uv run --directory <path-to>/linkedin-mcp-server mcp-server-linkedin --transport stdio
-```
+- **`uv` is not installed**, or was installed after this session started. Tell
+  me to run `uv --version`, and to restart Claude Code if it has just been
+  installed.
+- **The first run is still going.** `uvx` builds the server from source the
+  first time, which takes minutes. Tell me to run `/mcp` and look at
+  `plugin:linkedin-marketing:linkedin`.
 
-Then tell me the session has to restart before its tools appear. Do not fall
-back to any other browser tool to post a comment.
-
-Use whichever one you found for every call below, and say which one you are
-using.
+Note that `comment_on_post` is **not** in the published `mcp-server-linkedin`
+package — every tool there is read-only but for `send_message` and
+`connect_with_person`. So if a separate `linkedin-mcp-server` plugin is also
+installed, its tools will not do this and are not a substitute.
 
 ## 1. Find the candidates
 

@@ -5,6 +5,25 @@ allowed-tools: Read, Write, Edit, Glob, Bash, WebFetch, mcp__plugin_linkedin-mar
 
 Set up the LinkedIn marketing plugin for this project.
 
+## 0. Check `uv` is there
+
+`uv` is the plugin's only prerequisite. It runs the LinkedIn MCP server, the
+session-start reminders, and the carousel's PDF step, and it supplies Python
+itself, so nothing else has to be installed.
+
+Run `uv --version`. If it is missing, stop and give me the line for my platform:
+
+- **Windows** (PowerShell): `irm https://astral.sh/uv/install.ps1 | iex`
+- **macOS / Linux**: `curl -LsSf https://astral.sh/uv/install.sh | sh`
+
+Tell me to restart the session afterwards, because the plugin's MCP server and
+hooks are launched when the session starts and will not find `uv` until then.
+Don't run the install for me — it writes to my PATH.
+
+If it is there, say so in one line and carry on. Also mention, once, that the
+first carousel is slow: `uv` builds the server and then downloads a ~187 MB
+browser. It only happens once, and it is not a hang.
+
 ## 1. Don't clobber existing work
 
 Check whether `marketing-config.md` already exists in the project root. If it
@@ -14,20 +33,17 @@ fill just those in.
 
 ## 2. Start from what I typed at install
 
-The install dialog already collected some of this. Read it so you don't ask me twice:
+The install dialog already collected some of this. Read it so you don't ask me
+twice: open `~/.claude/settings.json` with the Read tool and look under
+`pluginConfigs` for the key containing `linkedin-marketing`. Its values are the
+company name, website, audience, cadence, Canva mode, and the mention settings.
 
-```bash
-python3 -I -c "
-import json, pathlib
-for p in [pathlib.Path.home()/'.claude/settings.json']:
-    try: d = json.loads(p.read_text())
-    except Exception: continue
-    for k, v in (d.get('pluginConfigs') or {}).items():
-        if 'linkedin-marketing' in k: print(k, json.dumps(v, indent=2))
-" 2>/dev/null || true
-```
+Read the file rather than shelling out to parse it. There may be no shell to
+shell out *to*: Git for Windows is optional for Claude Code, and without it
+there is no `bash`, only PowerShell. If the file or the key is absent, that just
+means the dialog was skipped — carry on and ask me.
 
-Use whatever that prints as the starting values. Anything it didn't give you, ask
+Use whatever you find as the starting values. Anything it didn't give you, ask
 me for: company name, website, and who our audience is. Then, if I say so, fetch
 the website to suggest the industry, what we do, differentiators, voice, and 3
 content pillars.
@@ -57,7 +73,19 @@ below, filled in with what I gave you and what you found. Leave anything unknown
 blank. It lives in my project, not in the plugin, so a plugin update never
 overwrites it.
 
-## 5. Tell me what's next
+## 5. Mentions, only if I asked for them
+
+If the install dialog set **Watch for mentions** on, fill the Mentions section
+in: `yes`, plus any extra terms, the check cadence, and the comment cap it gave
+you. Otherwise leave **Watch for mentions** as `no` and say one line about what
+it would do — don't talk me into it.
+
+Turning it on needs the comment tool, which is **not** in the published
+`mcp-server-linkedin` package. If I want mentions, tell me that
+`/linkedin-marketing:mention-comments` needs the local clone registered as an
+MCP server, and that it will tell me how when I run it.
+
+## 6. Tell me what's next
 
 Show me the filled-in file, then tell me to run `/linkedin-marketing:weekly-carousel`
 when I'm ready. Mention that I'll get a reminder here whenever the next one is due.
@@ -131,6 +159,18 @@ LinkedIn carousels are document posts — one multi-page PDF, one page per slide
 - **Trend window:** last 30 days
 - **Preferred sources:** (industry sites, publications you trust)
 - **Sources to avoid:** 
+
+## Mentions
+Used by /mention-comments and the mention-finder agent. Leave **Watch for
+mentions** as `no` and nothing here runs — no searching, no reminder.
+Comments are never posted without you approving each one.
+- **Watch for mentions:** no (yes / no)
+- **Watch terms:** (comma-separated; the company name is always included)
+- **Look back:** last 7 days
+- **Max candidates per check:** 5
+- **Max comments per run:** 3
+- **Never comment on:** (handles or companies to leave alone — competitors, press)
+- **Comment length:** 1–3 sentences
 
 ## Output
 - **Save posts to:** posts/

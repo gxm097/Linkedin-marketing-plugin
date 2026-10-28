@@ -67,22 +67,28 @@ If `NOTES-canva.md` records that a true multi-page design works, build one desig
 
 1. `export-design` each design as **PNG** at 1080×1080. (Confirm with `get-export-formats` if an export is refused.)
 2. Exports are asynchronous: poll the job until `status` is `success`, then read `urls`.
-3. **Download immediately** — Canva's export URLs expire after 24 hours. Save to `slides/NN.png`, numbered in slide order, zero-padded:
+3. **Download immediately** — Canva's export URLs expire after 24 hours. Pass every URL in **slide order**, in one call; the script numbers them `01.png`, `02.png`, … itself:
    ```bash
-   curl -fsSL "<url>" -o slides/01.png
+   uv run --script "${CLAUDE_PLUGIN_ROOT}/scripts/download.py" <out>/slides "<url-1>" "<url-2>" ...
    ```
+   Don't reach for `curl`: in Windows PowerShell 5.1 `curl` is an alias for `Invoke-WebRequest` and rejects `-fsSL`/`-o`. A 403 or 404 from this script means an export expired and has to be redone — it says so.
 4. Respect the rate limit: `export-design` allows 20 requests per minute. For a 10-slide deck, pace the calls.
 5. If an export fails with `license_required`, a premium Canva element is in the design. Tell the user which slide, and either swap the element or carry on without that slide's image.
 
 ## Step 4 — Stitch the PDF
 
 ```bash
-python3 -I "${CLAUDE_PLUGIN_ROOT}/scripts/build_pdf.py" <out>/slides -o <out>/carousel.pdf
+uv run --script "${CLAUDE_PLUGIN_ROOT}/scripts/build_pdf.py" <out>/slides -o <out>/carousel.pdf
 ```
 
 The script enforces LinkedIn's 300-page and 100 MB caps and warns if slide sizes
-differ. If it reports a missing library, install Pillow and retry:
-`python3 -m pip install Pillow`.
+differ. It embeds each PNG losslessly rather than re-encoding it.
+
+**`uv run --script`, not `python3`.** The script's own header declares img2pdf
+and Pillow, so `uv` fetches them — and an interpreter if the machine has none.
+There is nothing for the user to install. A bare `python3` both skips that and
+does not exist on Windows, where the python.org installer provides `python.exe`
+and Windows ships an alias named `python3.exe` that opens the Microsoft Store.
 
 ## Step 5 — Check before returning
 

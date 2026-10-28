@@ -1,4 +1,7 @@
-#!/usr/bin/env python3
+# /// script
+# requires-python = ">=3.11"
+# dependencies = ["img2pdf", "pillow"]
+# ///
 """Stitch carousel slide images into the single multi-page PDF LinkedIn wants.
 
 LinkedIn switched off native multi-image carousels in December 2023. A swipeable
@@ -6,7 +9,14 @@ carousel is now a *document post*: one multi-page file, one page per slide. So
 however the slides were produced, they have to arrive as a single PDF.
 
 Usage:
-    python3 -I build_pdf.py <slides_dir> -o <out.pdf> [--title "Deck title"]
+    uv run --script build_pdf.py <slides_dir> -o <out.pdf> [--title "Deck title"]
+
+Run through ``uv run --script``, never a bare ``python3``: the header above is
+what supplies img2pdf and Pillow, so there is nothing for the user to install
+first. ``python3`` is also simply absent on Windows -- the python.org installer
+provides ``python.exe`` and ``py.exe``, and Windows ships an App Execution Alias
+*named* ``python3.exe`` that opens the Microsoft Store instead of running
+anything.
 """
 
 import argparse
@@ -33,7 +43,12 @@ def find_slides(slides_dir: Path) -> list[Path]:
 
 
 def build_with_img2pdf(slides: list[Path], out: Path) -> bool:
-    """Lossless and exact, but img2pdf is often not installed."""
+    """Lossless and exact: embeds each PNG as-is rather than re-encoding it.
+
+    Preferred over Pillow, and the script header asks for it, so the fallback
+    below should never be reached. It is kept because the import can still fail
+    on a platform with no wheel, and a re-encoded carousel beats no carousel.
+    """
     try:
         import img2pdf
     except ImportError:
@@ -97,8 +112,9 @@ def main() -> None:
 
     if not (build_with_img2pdf(slides, args.out) or build_with_pillow(slides, args.out)):
         sys.exit(
-            "Need img2pdf or Pillow to build the PDF. Install one with:\n"
-            "  python3 -m pip install Pillow"
+            "Neither img2pdf nor Pillow could be imported, which means this was "
+            "not run through `uv run --script`. Re-run it as:\n"
+            f"  uv run --script {Path(__file__).name} <slides_dir> -o <out.pdf>"
         )
 
     size = args.out.stat().st_size

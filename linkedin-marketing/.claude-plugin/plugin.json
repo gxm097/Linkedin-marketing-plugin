@@ -1,8 +1,8 @@
 {
   "name": "linkedin-marketing",
   "displayName": "LinkedIn Marketing",
-  "version": "2.0.0",
-  "description": "Weekly LinkedIn carousel posts: researches your company and industry, designs the slides in Canva, writes the copy, and hands you a ready-to-upload PDF.",
+  "version": "2.2.0",
+  "description": "Weekly LinkedIn carousel posts: researches your company and industry, designs the slides in Canva, writes the copy, and hands you a ready-to-upload PDF. Can also find posts that mention you and comment on the ones you approve.",
   "author": {
     "name": "Gavin McCraw",
     "email": "gavinmccraw.web@gmail.com"
@@ -55,6 +55,30 @@
       "title": "Where to save posts",
       "description": "Folder for finished post packages, relative to your project.",
       "default": "posts/"
+    },
+    "watch_mentions": {
+      "type": "boolean",
+      "title": "Watch for posts that mention us",
+      "description": "Off: nothing changes. On: setup turns on mention checks, and Claude offers to run one when it is due. Comments are never posted without your approval of each one.",
+      "default": false
+    },
+    "mention_terms": {
+      "type": "string",
+      "title": "Extra terms to watch for",
+      "description": "Optional, comma-separated. Searched alongside the company name — product names, a founder's name, a branded phrase. Leave blank to watch the company name only.",
+      "default": ""
+    },
+    "mention_check_days": {
+      "type": "number",
+      "title": "Days between mention checks",
+      "description": "How often a mention check is due. 7 means weekly. 0 switches the reminder off.",
+      "default": 7
+    },
+    "max_comments_per_run": {
+      "type": "number",
+      "title": "Most comments to post in one run",
+      "description": "A hard cap, whatever you approve. LinkedIn restricts accounts that comment at volume, so keep this low.",
+      "default": 3
     }
   }
 }

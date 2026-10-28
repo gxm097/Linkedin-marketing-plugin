@@ -1,5 +1,5 @@
 {
-  "description": "Reminds you when the weekly LinkedIn carousel is due.",
+  "description": "Reminds you when the weekly LinkedIn carousel is due, and when a mention check is due.",
   "hooks": {
     "SessionStart": [
       {
@@ -7,10 +7,17 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash",
-            "args": ["${CLAUDE_PLUGIN_ROOT}/hooks/weekly-nudge.sh"],
-            "timeout": 10,
+            "command": "uv",
+            "args": ["run", "--script", "${CLAUDE_PLUGIN_ROOT}/hooks/nudge.py", "carousel"],
+            "timeout": 30,
             "statusMessage": "Checking if the weekly carousel is due"
+          },
+          {
+            "type": "command",
+            "command": "uv",
+            "args": ["run", "--script", "${CLAUDE_PLUGIN_ROOT}/hooks/nudge.py", "mentions"],
+            "timeout": 30,
+            "statusMessage": "Checking if a mention check is due"
           }
         ]
       }

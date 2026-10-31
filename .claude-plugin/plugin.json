@@ -54,12 +54,7 @@
     "canva_mode": {
       "type": "string",
       "title": "How Canva builds the slides",
-      "description": "auto: detect your Canva plan. brand-template: always autofill your Brand Template (needs Canva Pro). generate: always build from a prompt (works on Canva Free).",
-      "options": [
-        "auto",
-        "brand-template",
-        "generate"
-      ],
+      "description": "Type one of: auto (detect your Canva plan), brand-template (always autofill your Brand Template, needs Canva Pro), or generate (always build from a prompt, works on Canva Free).",
       "default": "auto"
     },
     "brand_template_id": {

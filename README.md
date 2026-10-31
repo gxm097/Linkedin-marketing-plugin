@@ -16,19 +16,17 @@ off by default, and every comment needs your approval before it is written.
 and the carousel's PDF step, and it supplies Python itself, so there is nothing
 else to install. It also runs the LinkedIn server, if you add one.
 
-**Windows** (PowerShell):
-```powershell
-irm https://astral.sh/uv/install.ps1 | iex
-```
-**macOS / Linux:**
-```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
-```
+**Windows:** `winget install --id=astral-sh.uv`
+
+**macOS / Linux:** `brew install uv`
+
+Or use the installer for your platform on [Astral's install
+page](https://docs.astral.sh/uv/getting-started/installation/).
 
 Then, in Claude Code:
 
 ```
-/plugin marketplace add gxm097/linkedin-marketing-plugin
+/plugin marketplace add gxm097/Linkedin-marketing-plugin
 /plugin install linkedin-marketing@gavin-marketing-tools
 ```
 

@@ -13,8 +13,9 @@ be installed. It also runs the LinkedIn server, if I have added one.
 
 Run `uv --version`. If it is missing, stop and give me the line for my platform:
 
-- **Windows** (PowerShell): `irm https://astral.sh/uv/install.ps1 | iex`
-- **macOS / Linux**: `curl -LsSf https://astral.sh/uv/install.sh | sh`
+- **Windows**: `winget install --id=astral-sh.uv`, or the PowerShell installer
+  on Astral's install page, <https://docs.astral.sh/uv/getting-started/installation/>
+- **macOS / Linux**: `brew install uv`, or the shell installer on that same page
 
 Tell me to restart the session afterwards, because the hooks are launched when
 the session starts and will not find `uv` until then.

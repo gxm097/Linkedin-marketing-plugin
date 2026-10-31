@@ -7,7 +7,20 @@
     "name": "Gavin McCraw",
     "email": "gavinmccraw.web@gmail.com"
   },
-  "keywords": ["linkedin", "marketing", "social media", "content", "canva", "carousel"],
+  "keywords": [
+    "linkedin",
+    "marketing",
+    "social media",
+    "content",
+    "canva",
+    "carousel"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/gxm097/Linkedin-marketing-plugin",
+  "repository": "https://github.com/gxm097/Linkedin-marketing-plugin",
+  "documentationUrl": "https://github.com/gxm097/Linkedin-marketing-plugin#readme",
+  "supportUrl": "https://github.com/gxm097/Linkedin-marketing-plugin/issues",
+  "privacyPolicyUrl": "https://github.com/gxm097/Linkedin-marketing-plugin/blob/main/PRIVACY.md",
   "userConfig": {
     "company_name": {
       "type": "string",
@@ -42,7 +55,11 @@
       "type": "string",
       "title": "How Canva builds the slides",
       "description": "auto: detect your Canva plan. brand-template: always autofill your Brand Template (needs Canva Pro). generate: always build from a prompt (works on Canva Free).",
-      "options": ["auto", "brand-template", "generate"],
+      "options": [
+        "auto",
+        "brand-template",
+        "generate"
+      ],
       "default": "auto"
     },
     "brand_template_id": {
@@ -65,7 +82,7 @@
     "mention_terms": {
       "type": "string",
       "title": "Extra terms to watch for",
-      "description": "Optional, comma-separated. Searched alongside the company name — product names, a founder's name, a branded phrase. Leave blank to watch the company name only.",
+      "description": "Optional, comma-separated. Searched alongside the company name \u2014 product names, a founder's name, a branded phrase. Leave blank to watch the company name only.",
       "default": ""
     },
     "mention_check_days": {

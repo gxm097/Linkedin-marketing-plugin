@@ -32,8 +32,8 @@ from pathlib import Path
 import pytest
 
 ROOT = Path(__file__).resolve().parent.parent
-NUDGE = ROOT / "linkedin-marketing" / "hooks" / "nudge.py"
-SETUP = ROOT / "linkedin-marketing" / "commands" / "linkedin-setup.md"
+NUDGE = ROOT / "hooks" / "nudge.py"
+SETUP = ROOT / "commands" / "linkedin-setup.md"
 
 
 def days_ago(n: int) -> str:

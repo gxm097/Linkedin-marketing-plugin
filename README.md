@@ -263,6 +263,5 @@ is treated as an unfinished week, not a completed one.
 
 ## Updating
 
-Bump `version` in both `.claude-plugin/marketplace.json` and
-`linkedin-marketing/.claude-plugin/plugin.json`, then have users run
+Bump `version` in `.claude-plugin/plugin.json`, then have users run
 `claude plugin update linkedin-marketing`.

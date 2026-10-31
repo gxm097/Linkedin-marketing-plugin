@@ -1,12 +1,12 @@
 # Hook tests
 
 ```bash
-uv run --script tests/test_nudge.py
+uv run --locked --script tests/test_nudge.py
 ```
 
 No `pip install pytest` step: the test declares pytest in its own PEP 723
 header, the same way the plugin's scripts declare theirs, so `uv` fetches it.
-Pass pytest flags through — `uv run --script tests/test_nudge.py -k mentions`.
+Pass pytest flags through — `uv run --locked --script tests/test_nudge.py -k mentions`.
 
 `hooks/nudge.py` runs on **every** session start in **every** project on the
 machine, so staying silent when it is not wanted matters more than anything
@@ -19,7 +19,7 @@ template, and the two drifted once already — the template emits
 string, hint included, against `yes`, so every config read as switched off
 while the test passed. Keep the fixture derived.
 
-Each case shells out through `uv run --script`, the way `hooks.json` invokes the
+Each case shells out through `uv run --locked --script`, the way `hooks.json` invokes the
 hook, so a mistake in the PEP 723 header or in argument handling fails here and
 not in a client's session.
 
@@ -37,4 +37,4 @@ exit 127: no reminder, ever, and nothing printed to say why.
 executable, and exec form passes the backslashed plugin path as one argv element
 that no shell tokenizes. So the rule for this plugin is: **no bash scripts, no
 bare `python3`, no bare `curl`.** Anything that needs to run, runs through
-`uv run --script`.
+`uv run --locked --script`.

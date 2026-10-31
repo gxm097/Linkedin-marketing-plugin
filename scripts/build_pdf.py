@@ -9,9 +9,9 @@ carousel is now a *document post*: one multi-page file, one page per slide. So
 however the slides were produced, they have to arrive as a single PDF.
 
 Usage:
-    uv run --script build_pdf.py <slides_dir> -o <out.pdf> [--title "Deck title"]
+    uv run --locked --script build_pdf.py <slides_dir> -o <out.pdf> [--title "Deck title"]
 
-Run through ``uv run --script``, never a bare ``python3``: the header above is
+Run through ``uv run --locked --script``, never a bare ``python3``: the header above is
 what supplies img2pdf and Pillow, so there is nothing for the user to install
 first. ``python3`` is also simply absent on Windows -- the python.org installer
 provides ``python.exe`` and ``py.exe``, and Windows ships an App Execution Alias
@@ -113,8 +113,8 @@ def main() -> None:
     if not (build_with_img2pdf(slides, args.out) or build_with_pillow(slides, args.out)):
         sys.exit(
             "Neither img2pdf nor Pillow could be imported, which means this was "
-            "not run through `uv run --script`. Re-run it as:\n"
-            f"  uv run --script {Path(__file__).name} <slides_dir> -o <out.pdf>"
+            "not run through `uv run --locked --script`. Re-run it as:\n"
+            f"  uv run --locked --script {Path(__file__).name} <slides_dir> -o <out.pdf>"
         )
 
     size = args.out.stat().st_size

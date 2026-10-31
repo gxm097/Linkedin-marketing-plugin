@@ -5,7 +5,7 @@
 """Download Canva's exported slides into a numbered folder.
 
 Usage:
-    uv run --script download.py <out_dir> <url> [<url> ...]
+    uv run --locked --script download.py <out_dir> <url> [<url> ...]
 
 URLs are saved in the order given, as ``01.png``, ``02.png``, ... — slide order
 is argument order, which is also what build_pdf.py sorts on.
@@ -61,7 +61,7 @@ def fetch(url: str, out: Path) -> int:
 def main() -> None:
     if len(sys.argv) < 3:
         sys.exit(
-            f"Usage: uv run --script {Path(__file__).name} <out_dir> <url> [<url> ...]"
+            f"Usage: uv run --locked --script {Path(__file__).name} <out_dir> <url> [<url> ...]"
         )
 
     out_dir = Path(sys.argv[1])

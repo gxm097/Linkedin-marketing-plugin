@@ -212,7 +212,7 @@ feature off really does stop it.
 - **Web search enabled** in Claude Code, for the research step
 
 You do **not** need Python, pip, Pillow, or Git. Every script in the plugin
-declares what it needs in its own header and runs through `uv run --script`,
+declares what it needs in its own header and runs through `uv run --locked --script`,
 which fetches both the libraries and an interpreter on first use.
 
 ### On Windows

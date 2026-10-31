@@ -4,7 +4,7 @@
 # ///
 """Tells Claude when the weekly carousel, or a mention check, is due.
 
-Run as ``uv run --script nudge.py carousel`` or ``... mentions``.
+Run as ``uv run --locked --script nudge.py carousel`` or ``... mentions``.
 
 This replaces two bash scripts, and the reason is Windows. The hooks ran as
 ``"command": "bash"`` with ``args``, which is the exec form, and the hooks

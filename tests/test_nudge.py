@@ -4,7 +4,7 @@
 # ///
 """Exercises hooks/nudge.py.
 
-    uv run --script tests/test_nudge.py
+    uv run --locked --script tests/test_nudge.py
 
 Both checks run on **every** session start in **every** project on the machine,
 so staying silent when they are not wanted matters more than anything else they
@@ -17,7 +17,7 @@ template, and the two drifted once already -- the template emits
 string, hint included, against ``yes``, so every config read as switched off
 while the test passed. Keep the fixture derived.
 
-Each case shells out through ``uv run --script``, the way the hook itself is
+Each case shells out through ``uv run --locked --script``, the way the hook itself is
 invoked, so a mistake in the PEP 723 header or in argument handling fails here
 rather than in a client's session.
 """
@@ -53,7 +53,7 @@ def run(which: str, project: Path, **options: str) -> str:
     }
     env.update({f"CLAUDE_PLUGIN_OPTION_{k}": v for k, v in options.items()})
     done = subprocess.run(
-        ["uv", "run", "--script", str(NUDGE), which],
+        ["uv", "run", "--locked", "--script", str(NUDGE), which],
         capture_output=True,
         text=True,
         env=env,

@@ -8,14 +8,14 @@
           {
             "type": "command",
             "command": "uv",
-            "args": ["run", "--script", "${CLAUDE_PLUGIN_ROOT}/hooks/nudge.py", "carousel"],
+            "args": ["run", "--locked", "--script", "${CLAUDE_PLUGIN_ROOT}/hooks/nudge.py", "carousel"],
             "timeout": 30,
             "statusMessage": "Checking if the weekly carousel is due"
           },
           {
             "type": "command",
             "command": "uv",
-            "args": ["run", "--script", "${CLAUDE_PLUGIN_ROOT}/hooks/nudge.py", "mentions"],
+            "args": ["run", "--locked", "--script", "${CLAUDE_PLUGIN_ROOT}/hooks/nudge.py", "mentions"],
             "timeout": 30,
             "statusMessage": "Checking if a mention check is due"
           }

@@ -1,7 +1,7 @@
 ---
 name: canva-carousel
 description: Builds LinkedIn carousel slides in Canva from a slide script and exports them as images, then stitches them into the single multi-page PDF LinkedIn needs. Use when a carousel, slide deck, or multi-slide graphic is needed for a social post. Also handles single marketing images.
-allowed-tools: Read, Write, Glob, Bash, mcp__canva__help, mcp__canva__list-brand-kits, mcp__canva__search-brand-templates, mcp__canva__get-brand-template-dataset, mcp__canva__autofill-design, mcp__canva__create-design-from-brand-template, mcp__canva__create-design, mcp__canva__generate-design, mcp__canva__generate-image, mcp__canva__upload-asset-from-url, mcp__canva__start-editing-transaction, mcp__canva__perform-editing-operations, mcp__canva__commit-editing-transaction, mcp__canva__get-design-pages, mcp__canva__get-export-formats, mcp__canva__merge-designs, mcp__canva__export-design
+allowed-tools: Read, Write, Glob, Bash(uv run --locked --script "${CLAUDE_PLUGIN_ROOT}/scripts/download.py" *), Bash(uv run --locked --script "${CLAUDE_PLUGIN_ROOT}/scripts/build_pdf.py" *), mcp__canva__help, mcp__canva__list-brand-kits, mcp__canva__search-brand-templates, mcp__canva__get-brand-template-dataset, mcp__canva__autofill-design, mcp__canva__create-design-from-brand-template, mcp__canva__create-design, mcp__canva__generate-design, mcp__canva__generate-image, mcp__canva__upload-asset-from-url, mcp__canva__start-editing-transaction, mcp__canva__perform-editing-operations, mcp__canva__commit-editing-transaction, mcp__canva__get-design-pages, mcp__canva__get-export-formats, mcp__canva__merge-designs, mcp__canva__export-design
 ---
 
 # Canva carousel builder

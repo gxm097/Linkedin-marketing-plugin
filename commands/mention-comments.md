@@ -1,6 +1,6 @@
 ---
 description: Find recent LinkedIn posts that mention the company, verify each one, and comment on the ones I approve
-allowed-tools: Read, Write, Edit, Glob, Bash, Task, mcp__linkedin__comment_on_post, mcp__linkedin__search_posts, mcp__linkedin__get_company_posts, mcp__linkedin-dev__comment_on_post, mcp__linkedin-dev__search_posts, mcp__linkedin-dev__get_company_posts
+allowed-tools: Read, Write, Edit, Glob, Task, mcp__linkedin__comment_on_post, mcp__linkedin__search_posts, mcp__linkedin__get_company_posts, mcp__linkedin-dev__comment_on_post, mcp__linkedin-dev__search_posts, mcp__linkedin-dev__get_company_posts
 ---
 
 Find posts mentioning the company and comment on the ones I approve.

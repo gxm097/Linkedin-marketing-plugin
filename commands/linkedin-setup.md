@@ -1,6 +1,6 @@
 ---
 description: Set up this project for LinkedIn marketing — write marketing-config.md and check the Canva connection
-allowed-tools: Read, Write, Edit, Glob, Bash, WebFetch, Skill, mcp__canva__list-brand-kits, mcp__canva__search-brand-templates, mcp__linkedin__get_my_profile, mcp__linkedin-dev__get_my_profile
+allowed-tools: Read, Write, Edit, Glob, Bash(uv --version), WebFetch, Skill, mcp__canva__list-brand-kits, mcp__canva__search-brand-templates, mcp__linkedin__get_my_profile, mcp__linkedin-dev__get_my_profile
 ---
 
 Set up the LinkedIn marketing plugin for this project.

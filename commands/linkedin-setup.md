@@ -34,20 +34,25 @@ fill just those in.
 
 ## 2. Start from what I typed at install
 
-The install dialog already collected some of this. Read it so you don't ask me
-twice: open `~/.claude/settings.json` with the Read tool and look under
-`pluginConfigs` for the key containing `linkedin-marketing`. Its values are the
-company name, website, audience, cadence, Canva mode, and the mention settings.
+Here is what I typed into the install dialog, so you don't ask me twice:
 
-Read the file rather than shelling out to parse it. There may be no shell to
-shell out *to*: Git for Windows is optional for Claude Code, and without it
-there is no `bash`, only PowerShell. If the file or the key is absent, that just
-means the dialog was skipped — carry on and ask me.
+- Company name: ${user_config.company_name}
+- Company website: ${user_config.company_website}
+- Who we're posting to: ${user_config.audience}
+- Days between posts: ${user_config.cadence_days}
+- Canva mode: ${user_config.canva_mode}
+- Canva Brand Template ID: ${user_config.brand_template_id}
+- Save posts to: ${user_config.posts_dir}
+- Watch for mentions: ${user_config.watch_mentions}
+- Extra mention terms: ${user_config.mention_terms}
+- Days between mention checks: ${user_config.mention_check_days}
+- Most comments per run: ${user_config.max_comments_per_run}
 
-Use whatever you find as the starting values. Anything it didn't give you, ask
-me for: company name, website, and who our audience is. Then, if I say so, fetch
-the website to suggest the industry, what we do, differentiators, voice, and 3
-content pillars.
+A blank value means I skipped that field — ask me for it. **Don't go looking in
+my settings files for any of this**, and don't shell out to parse one. Anything
+blank that you need, ask me: company name, website, and who our audience is are
+the three that matter. Then, if I say so, fetch the website to suggest the
+industry, what we do, differentiators, voice, and 3 content pillars.
 
 ## 3. Check the Canva connection
 
@@ -80,7 +85,7 @@ overwrites it.
 
 ## 5. Mentions, only if I asked for them
 
-If the install dialog set **Watch for mentions** on, fill the Mentions section
+If **Watch for mentions** above is `true`, fill the Mentions section
 in: `yes`, plus any extra terms, the check cadence, and the comment cap it gave
 you. Otherwise leave **Watch for mentions** as `no` and say one line about what
 it would do — don't talk me into it.

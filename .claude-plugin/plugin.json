@@ -1,7 +1,7 @@
 {
   "name": "linkedin-marketing",
   "displayName": "LinkedIn Marketing",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Weekly LinkedIn carousel posts: researches your company and industry, designs the slides in Canva, writes the copy, and hands you a ready-to-upload PDF. Can also find posts that mention you and comment on the ones you approve.",
   "author": {
     "name": "Gavin McCraw",

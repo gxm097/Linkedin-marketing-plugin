@@ -1,23 +1,23 @@
 ---
 description: Set up this project for LinkedIn marketing — write marketing-config.md and check the Canva connection
-allowed-tools: Read, Write, Edit, Glob, Bash, WebFetch, Skill, mcp__canva__list-brand-kits, mcp__canva__search-brand-templates, mcp__plugin_linkedin-marketing_linkedin__get_my_profile, mcp__linkedin-dev__get_my_profile
+allowed-tools: Read, Write, Edit, Glob, Bash, WebFetch, Skill, mcp__canva__list-brand-kits, mcp__canva__search-brand-templates, mcp__linkedin__get_my_profile, mcp__linkedin-dev__get_my_profile
 ---
 
 Set up the LinkedIn marketing plugin for this project.
 
 ## 0. Check `uv` is there
 
-`uv` is the plugin's only prerequisite. It runs the LinkedIn MCP server, the
-session-start reminders, and the carousel's PDF step, and it supplies Python
-itself, so nothing else has to be installed.
+`uv` is the plugin's only prerequisite. It runs the session-start reminders and
+the carousel's PDF step, and it supplies Python itself, so nothing else has to
+be installed. It also runs the LinkedIn server, if I have added one.
 
 Run `uv --version`. If it is missing, stop and give me the line for my platform:
 
 - **Windows** (PowerShell): `irm https://astral.sh/uv/install.ps1 | iex`
 - **macOS / Linux**: `curl -LsSf https://astral.sh/uv/install.sh | sh`
 
-Tell me to restart the session afterwards, because the plugin's MCP server and
-hooks are launched when the session starts and will not find `uv` until then.
+Tell me to restart the session afterwards, because the hooks are launched when
+the session starts and will not find `uv` until then.
 Don't run the install for me — it writes to my PATH.
 
 If it is there, say so in one line and carry on. Also mention, once, that the
@@ -90,17 +90,21 @@ Do this even if mentions are off; the carousel's research does not need
 LinkedIn, but everything else does, and it is better to get it over with here
 than halfway through a carousel.
 
-Call `get_my_profile` on the plugin's LinkedIn server. It is read-only. One of
-three things happens:
+Call `get_my_profile` on the `linkedin` server. It is read-only. One of three
+things happens:
 
 - **It returns a profile** → say whose account it is, in one line. Done.
 - **A browser window opens** → tell me to sign in there, and that LinkedIn may
   ask me to confirm in its mobile app or solve a captcha. Both are mine to do in
   that window. Wait for me.
-- **The tool is not there at all** → the plugin's server did not start. Check
-  `uv --version`; if `uv` was installed after this session began, tell me to
-  restart Claude Code. If `uv` is fine, the first run builds the server from
-  source and takes minutes — tell me to check `/mcp`.
+- **The tool is not there at all** → the LinkedIn server has not been added.
+  This plugin does not ship it. Point me at the README's **Add the LinkedIn
+  server** step, exactly as you would for Canva, and give me the line to run in
+  my own terminal:
+  `claude mcp add linkedin --scope user -e UV_HTTP_TIMEOUT=300 -- uvx --from git+https://github.com/gxm097/linkedin-mcp-server@v4.28.0-comment.1 mcp-server-linkedin --transport stdio`
+  If it is added but the tool is missing, check `uv --version`, restart Claude
+  Code if `uv` arrived after this session began, and remember the first run
+  builds the server from source and takes minutes — tell me to check `/mcp`.
 
 Never offer to work around this with another browser tool.
 

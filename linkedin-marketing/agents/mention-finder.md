@@ -1,7 +1,7 @@
 ---
 name: mention-finder
 description: Finds recent LinkedIn posts that mention the company and drafts a reply comment for each one. Use before commenting on anything, whenever the user asks to find, check, or respond to mentions of the company on LinkedIn. Returns candidates for review, and never comments itself.
-tools: Read, Grep, Glob, mcp__plugin_linkedin-marketing_linkedin__search_posts, mcp__plugin_linkedin-marketing_linkedin__get_company_posts, mcp__plugin_linkedin-marketing_linkedin__get_feed, mcp__plugin_linkedin-marketing_linkedin__get_company_profile, mcp__linkedin-dev__search_posts, mcp__linkedin-dev__get_company_posts, mcp__linkedin-dev__get_feed, mcp__linkedin-dev__get_company_profile
+tools: Read, Grep, Glob, mcp__linkedin__search_posts, mcp__linkedin__get_company_posts, mcp__linkedin__get_feed, mcp__linkedin__get_company_profile, mcp__linkedin-dev__search_posts, mcp__linkedin-dev__get_company_posts, mcp__linkedin-dev__get_feed, mcp__linkedin-dev__get_company_profile
 model: sonnet
 ---
 

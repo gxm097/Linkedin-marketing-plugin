@@ -12,9 +12,9 @@ off by default, and every comment needs your approval before it is written.
 
 ## Install
 
-**First, install `uv`** — the plugin's only prerequisite. It runs the LinkedIn
-server, the reminders, and the carousel's PDF step, and it supplies Python
-itself, so there is nothing else to install.
+**First, install `uv`** — the plugin's only prerequisite. It runs the reminders
+and the carousel's PDF step, and it supplies Python itself, so there is nothing
+else to install. It also runs the LinkedIn server, if you add one.
 
 **Windows** (PowerShell):
 ```powershell
@@ -63,10 +63,22 @@ session and won't find `uv` until then.
    `http://127.0.0.1:8080/callback` as a second redirect URL. The port in the
    redirect URL and `--callback-port` must match.
 
-2. **Open the project folder** where you want your posts saved, and run
+2. **Add the LinkedIn server.** Only needed for commenting on posts that
+   mention you; skip it if you just want carousels. In a terminal:
+
+   ```bash
+   claude mcp add linkedin --scope user -e UV_HTTP_TIMEOUT=300 -- \
+     uvx --from git+https://github.com/gxm097/linkedin-mcp-server@v4.28.0-comment.1 \
+     mcp-server-linkedin --transport stdio
+   ```
+
+   Name it exactly `linkedin` — the commands and agents are scoped to that name.
+   The first run builds it from source and takes a few minutes.
+
+3. **Open the project folder** where you want your posts saved, and run
    `/linkedin-marketing:linkedin-setup`. It interviews you, reads your website, checks what your
    Canva plan can do, and writes `marketing-config.md`.
-3. **Edit `marketing-config.md`** whenever you like. It holds your voice, your
+4. **Edit `marketing-config.md`** whenever you like. It holds your voice, your
    three content pillars, your banned words, and your brand colors. This file is
    yours — plugin updates never overwrite it.
 
@@ -144,16 +156,16 @@ approve, because LinkedIn restricts accounts that comment at volume.
 What goes out is appended to `mentions-log.md` in your project, which is also how
 the next run knows not to comment on the same post twice.
 
-### The LinkedIn server is included
+### The LinkedIn server
 
-There is nothing to install and no second plugin to add. The plugin ships its
-own LinkedIn server and Claude Code starts it for you — `uv` fetches it on first
-use, which is why `uv` is the one prerequisite.
+Commenting needs a LinkedIn server, which the plugin does not ship. Add it once,
+in a terminal — see [Add the LinkedIn server](#set-up-once-about-five-minutes).
 
-**Don't install `linkedin-mcp-server` separately, and disable it if you already
-have it.** Two copies drive the same browser profile and contend for it. The
-published package also cannot comment on posts: every tool in it is read-only
-except `send_message` and `connect_with_person`, so it is not a substitute.
+**Name it exactly `linkedin`**, and **don't install `linkedin-mcp-server`
+separately** — disable it if you already have it. Two copies drive the same
+browser profile and contend for it. The published package also cannot comment on
+posts: every tool in it is read-only except `send_message` and
+`connect_with_person`, so it is not a substitute.
 
 ### Why it double-checks every link
 
@@ -207,8 +219,9 @@ which fetches both the libraries and an interpreter on first use.
 
 It works on native Windows; you don't need WSL. Two things worth knowing:
 
-- **The first carousel is slow.** `uv` builds the LinkedIn server, and its first
-  tool call downloads a ~187 MB browser. Several minutes, once. It has not hung.
+- **The LinkedIn server is slow to start the first time.** `uv` builds it from
+  source, and its first tool call downloads a ~187 MB browser. Several minutes,
+  once. It has not hung.
 - **Signing in to LinkedIn opens a real browser window.** Claude can't do this
   part for you. It usually happens by itself the first time a LinkedIn tool is
   used — a window appears, you sign in, and it carries on. LinkedIn may ask you
@@ -227,11 +240,12 @@ so if a run was interrupted mid-export, just run it again.
 and slide script were still written. Fix the connection and re-run, or build the
 slides by hand from the script in `post.md`.
 
-**"The comment tool isn't available"** — the plugin's own LinkedIn server didn't
-start. Check `uv --version`, and restart Claude Code if you installed `uv` after
-starting it. If `uv` is fine, the first run builds the server from source and
-takes a few minutes — run `/mcp` and look at
-`plugin:linkedin-marketing:linkedin`.
+**"The comment tool isn't available"** — the `linkedin` server isn't there. If
+you never added it, see [Add the LinkedIn
+server](#set-up-once-about-five-minutes). If you did, check `uv --version`, and
+restart Claude Code if you installed `uv` after starting it. The first run builds
+the server from source and takes a few minutes — run `/mcp` and look at
+`linkedin`.
 
 **A mention was found but not commented on** — the command drops any link it
 can't match to the post it was meant for, which is deliberate; an unverified

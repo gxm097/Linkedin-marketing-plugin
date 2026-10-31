@@ -1,7 +1,7 @@
 ---
 name: canva-carousel
 description: Builds LinkedIn carousel slides in Canva from a slide script and exports them as images, then stitches them into the single multi-page PDF LinkedIn needs. Use when a carousel, slide deck, or multi-slide graphic is needed for a social post. Also handles single marketing images.
-allowed-tools: Read, Write, Glob, Bash, mcp__plugin_linkedin-marketing_canva__help, mcp__plugin_linkedin-marketing_canva__list-brand-kits, mcp__plugin_linkedin-marketing_canva__search-brand-templates, mcp__plugin_linkedin-marketing_canva__get-brand-template-dataset, mcp__plugin_linkedin-marketing_canva__autofill-design, mcp__plugin_linkedin-marketing_canva__create-design-from-brand-template, mcp__plugin_linkedin-marketing_canva__create-design, mcp__plugin_linkedin-marketing_canva__generate-design, mcp__plugin_linkedin-marketing_canva__generate-image, mcp__plugin_linkedin-marketing_canva__upload-asset-from-url, mcp__plugin_linkedin-marketing_canva__start-editing-transaction, mcp__plugin_linkedin-marketing_canva__perform-editing-operations, mcp__plugin_linkedin-marketing_canva__commit-editing-transaction, mcp__plugin_linkedin-marketing_canva__get-design-pages, mcp__plugin_linkedin-marketing_canva__get-export-formats, mcp__plugin_linkedin-marketing_canva__merge-designs, mcp__plugin_linkedin-marketing_canva__export-design
+allowed-tools: Read, Write, Glob, Bash, mcp__canva__help, mcp__canva__list-brand-kits, mcp__canva__search-brand-templates, mcp__canva__get-brand-template-dataset, mcp__canva__autofill-design, mcp__canva__create-design-from-brand-template, mcp__canva__create-design, mcp__canva__generate-design, mcp__canva__generate-image, mcp__canva__upload-asset-from-url, mcp__canva__start-editing-transaction, mcp__canva__perform-editing-operations, mcp__canva__commit-editing-transaction, mcp__canva__get-design-pages, mcp__canva__get-export-formats, mcp__canva__merge-designs, mcp__canva__export-design
 ---
 
 # Canva carousel builder
@@ -42,6 +42,13 @@ Pick the mode:
 Honour an explicit `canva_mode` of `brand-template` or `generate` over what you detected. If `brand-template` was asked for but no template exists, say so plainly and fall back to `generate` rather than failing.
 
 Record the mode you used in `slides.json`.
+
+**Canva is not bundled with the plugin.** It cannot be: `api.canva.com` offers
+no dynamic client registration, and a client secret can only be supplied when a
+server is added, not from a plugin's `.mcp.json`. So the user adds it themselves
+with `claude mcp add`, naming it `canva`, and its tools are `mcp__canva__…`.
+If none of those tools are available, Canva has not been connected — see
+**Degrading gracefully** below.
 
 **The tool input schemas are not published.** Call `help`, or read the error a
 tool returns, rather than guessing argument names. If a call fails on its
@@ -107,7 +114,11 @@ unavailable, not authorised, or erroring:
 1. Write `slides/slides.json` with the full slide script and the per-slide image prompts you would have used.
 2. Create no `carousel.pdf`.
 3. Report clearly: which step failed, the exact error, and that the post copy is still usable.
-4. If it is an auth problem, tell the user to run `/mcp`, pick `plugin:linkedin-marketing:canva`, and sign in.
+4. If it is an auth problem, say Canva needs connecting and point at the
+   README's **Connect Canva** step. It takes a Canva app's own client ID and
+   secret through `claude mcp add`, then `/mcp` → `canva` → sign in.
+   Authorising `plugin:linkedin-marketing:canva` will not work: it fails with
+   "does not support dynamic client registration".
 
 The post copy ships either way. A missing graphic is a delay; a missing post is a missed week.
 

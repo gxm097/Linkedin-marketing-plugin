@@ -1,6 +1,6 @@
 ---
 description: Set up this project for LinkedIn marketing — write marketing-config.md and check the Canva connection
-allowed-tools: Read, Write, Edit, Glob, Bash, WebFetch, Skill, mcp__plugin_linkedin-marketing_canva__list-brand-kits, mcp__plugin_linkedin-marketing_canva__search-brand-templates, mcp__plugin_linkedin-marketing_linkedin__get_my_profile, mcp__linkedin-dev__get_my_profile
+allowed-tools: Read, Write, Edit, Glob, Bash, WebFetch, Skill, mcp__canva__list-brand-kits, mcp__canva__search-brand-templates, mcp__plugin_linkedin-marketing_linkedin__get_my_profile, mcp__linkedin-dev__get_my_profile
 ---
 
 Set up the LinkedIn marketing plugin for this project.
@@ -62,7 +62,11 @@ Call `list-brand-kits`.
   **Apps → Bulk Create → Labels** before autofill can work.
 - **It failed** → either Canva isn't connected or the plan is Free. Set Canva mode
   to `generate`, which works on Canva Free. If it looks like an auth problem, tell
-  me to run `/mcp`, pick `plugin:linkedin-marketing:canva`, and sign in.
+  me Canva still needs connecting and point me at the README's **Connect Canva**
+  step — it needs a Canva app's own client ID and secret through `claude mcp add`,
+  then `/mcp` → `canva` → sign in. Don't tell me to authorise
+  `plugin:linkedin-marketing:canva`; that server has no credentials and fails with
+  "does not support dynamic client registration".
 
 Either way, don't stop setup over Canva. `generate` mode works for everyone.
 

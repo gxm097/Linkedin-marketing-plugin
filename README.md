@@ -40,8 +40,29 @@ session and won't find `uv` until then.
 
 ## Set up (once, about five minutes)
 
-1. **Connect Canva.** Run `/mcp`, choose `plugin:linkedin-marketing:canva`, and
-   sign in. The plugin already knows the address — you just approve it.
+1. **Connect Canva.** Canva's MCP server has no dynamic client registration, so
+   Claude Code cannot register itself — it needs a Canva app's own credentials.
+   In Canva's [Developer Portal](https://www.canva.dev/), create a **Public** app
+   (Private needs an Enterprise plan, and the type can't be changed later), open
+   **Outside Canva → Start integrating**, then under
+   **Configuration → Integration methods** turn on **Canva MCP** and leave
+   **Canva REST APIs** off. Copy the **Client ID**, click **Generate secret**
+   (shown once), and add `http://localhost:8080/callback` under
+   **Redirect URLs**. Then, in a terminal:
+
+   ```bash
+   claude mcp add --transport http \
+     --client-id <your-client-id> --client-secret --callback-port 8080 \
+     canva https://api.canva.com/connect/v1/mcp
+   ```
+
+   Name the server exactly `canva` — the plugin's skills are scoped to that
+   name. `--client-secret` prompts for the secret and keeps it in your keychain,
+   not in any config file. Finish with `/mcp` → `canva` → sign in. A Public app works in
+   draft — no Canva review, any plan. If sign-in fails on the redirect, add
+   `http://127.0.0.1:8080/callback` as a second redirect URL. The port in the
+   redirect URL and `--callback-port` must match.
+
 2. **Open the project folder** where you want your posts saved, and run
    `/linkedin-marketing:linkedin-setup`. It interviews you, reads your website, checks what your
    Canva plan can do, and writes `marketing-config.md`.
@@ -173,7 +194,9 @@ feature off really does stop it.
 
 - **[uv](https://docs.astral.sh/uv/)** — the only thing you install yourself.
   See [Install](#install) for the one line per platform.
-- **Canva account** — Free works; Pro unlocks Brand Templates
+- **Canva account** — Free works; Pro unlocks Brand Templates. Canva also
+  needs its own app credentials, created once in Canva's Developer Portal.
+  See [Connect Canva](#set-up-once-about-five-minutes).
 - **Web search enabled** in Claude Code, for the research step
 
 You do **not** need Python, pip, Pillow, or Git. Every script in the plugin
@@ -197,8 +220,7 @@ It works on native Windows; you don't need WSL. Two things worth knowing:
 **"Run /linkedin-marketing:linkedin-setup first"** — you're in a folder with no `marketing-config.md`.
 Open your marketing project folder, or run `/linkedin-marketing:linkedin-setup` here.
 
-**Canva tools failing** — run `/mcp` and re-authorise
-`plugin:linkedin-marketing:canva`. Export links from Canva expire after 24 hours,
+**Canva tools failing** — run `/mcp` and re-authorise `canva`. Export links from Canva expire after 24 hours,
 so if a run was interrupted mid-export, just run it again.
 
 **Carousel marked NOT GENERATED** — Canva couldn't be reached, but the post copy

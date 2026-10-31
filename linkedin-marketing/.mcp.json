@@ -1,9 +1,5 @@
 {
   "mcpServers": {
-    "canva": {
-      "type": "http",
-      "url": "https://api.canva.com/connect/v1/mcp"
-    },
     "linkedin": {
       "command": "uvx",
       "args": [

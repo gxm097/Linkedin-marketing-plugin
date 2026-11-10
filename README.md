@@ -38,7 +38,9 @@ session and won't find `uv` until then.
 
 ## Set up (once, about five minutes)
 
-1. **Connect Canva.** Canva's MCP server has no dynamic client registration, so
+1. **Connect Canva.** The simplest way is the **Canva connector** in claude.ai
+   (Settings → Connectors). If you use it, you're done — skip the rest of this
+   step. Otherwise, add Canva yourself: Canva's MCP server has no dynamic client registration, so
    Claude Code cannot register itself — it needs a Canva app's own credentials.
    In Canva's [Developer Portal](https://www.canva.dev/), create a **Public** app
    (Private needs an Enterprise plan, and the type can't be changed later), open
@@ -54,8 +56,8 @@ session and won't find `uv` until then.
      canva https://api.canva.com/connect/v1/mcp
    ```
 
-   Name the server exactly `canva` — the plugin's skills are scoped to that
-   name. `--client-secret` prompts for the secret and keeps it in your keychain,
+   Any server name works — the plugin finds Canva by its tools, not its name.
+   `--client-secret` prompts for the secret and keeps it in your keychain,
    not in any config file. Finish with `/mcp` → `canva` → sign in. A Public app works in
    draft — no Canva review, any plan. If sign-in fails on the redirect, add
    `http://127.0.0.1:8080/callback` as a second redirect URL. The port in the
@@ -80,11 +82,25 @@ session and won't find `uv` until then.
    three content pillars, your banned words, and your brand colors. This file is
    yours — plugin updates never overwrite it.
 
+### How the graphics are built
+
+Prompt-generated graphics look generated. So when you already have posts your
+designer made, setup asks you to pick 3–6 of them as **reference designs**, and
+each post copies one, rewrites only its text, region by region so fonts and
+colours stay exactly as designed, and rotates to a different layout from the
+last post. Point **Asset folder** at a Canva folder of real photos and
+screenshots and they replace the reference's background. Every graphic lands in
+a **Claude drafts** folder as `DRAFT – …` and is saved and exported only after
+you approve the preview. Your originals are never edited.
+
+Without reference designs, the plugin falls back to your Brand Template, then to
+generating from a prompt.
+
 ### Canva plans
 
 Carousels work on **Canva Free**. If you're on **Canva Pro** or above, the plugin
-will use one of your Brand Templates instead, which makes the slides properly
-on-brand and consistent week to week. Setup detects which applies.
+can also use one of your Brand Templates, which keeps slides on-brand and
+consistent week to week. Setup detects which applies.
 
 To use a Brand Template, make a 1080×1080 template in Canva and tag its text
 fields under **Apps → Bulk Create → Labels**. Setup will find it from there.
@@ -198,7 +214,7 @@ feature off really does stop it.
 | `carousel-writer` agent | Turns the brief into a slide script and post copy |
 | `linkedin-post-creator` agent | Turns the brief into a single-image post package |
 | `mention-finder` agent | Finds posts mentioning you and drafts a reply for each; has no write tool |
-| `canva-carousel` skill | Builds and exports the slides in Canva, stitches the PDF |
+| `canva-carousel` skill | Builds draft graphics in Canva from your reference designs, exports them once you approve, stitches the PDF |
 
 ## Requirements
 
@@ -231,7 +247,7 @@ It works on native Windows; you don't need WSL. Two things worth knowing:
 **"Run /linkedin-marketing:linkedin-setup first"** — you're in a folder with no `marketing-config.md`.
 Open your marketing project folder, or run `/linkedin-marketing:linkedin-setup` here.
 
-**Canva tools failing** — run `/mcp` and re-authorise `canva`. Export links from Canva expire after 24 hours,
+**Canva tools failing** — run `/mcp` and re-authorise your Canva server (or reconnect the claude.ai Canva connector). Export links from Canva expire after 24 hours,
 so if a run was interrupted mid-export, just run it again.
 
 **Carousel marked NOT GENERATED** — Canva couldn't be reached, but the post copy

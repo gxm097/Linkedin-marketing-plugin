@@ -28,9 +28,12 @@ Follow these steps in order.
    `<Save posts to>/YYYY-MM-DD-<short-slug>/` (from the config; fallback
    `posts/`). It writes `post.md` and returns the slide script.
 
-5. **Build the slides.** Invoke the **canva-carousel** skill with the slide
-   script, the config's Image settings, and the same output directory. It builds
-   the slides in Canva, exports them, and produces `carousel.pdf`.
+5. **Build the slides.** Invoke the **canva-carousel** skill here, in this
+   conversation (the agents cannot reach Canva), with the slide script, the
+   config's Image and Carousel settings, and the same output directory. It
+   builds draft slides in Canva and returns previews. **Show me the previews and
+   ask me to approve them** — nothing is saved in Canva or exported until I do.
+   Then it exports them and produces `carousel.pdf`.
    If Canva is unavailable, continue anyway — the post copy and slide script are
    still worth having. Say clearly that the graphic wasn't generated and why.
 

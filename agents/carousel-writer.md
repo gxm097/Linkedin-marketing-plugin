@@ -37,12 +37,13 @@ for that.
 **Hard rules per slide:**
 - **Headline: 15 words maximum.** Short enough to read at a glance and large on screen.
 - Optional sub-line: one short sentence, only when the headline genuinely needs support.
-- Image direction: one line describing the visual. No text in the image itself — the headline carries the words.
+- Layout: if the config's **Image** section lists **Reference designs**, name one by its label for each slide. Don't open with the layout the last carousel opened with (check the previous post folder's `slides/slides.json`), and vary layouts across the body slides where the references allow. With no reference designs, write `generate` and one line describing the visual.
+- Make each headline specific, not a slogan: a concrete situation, a named mistake, a number from the brief. Mark the one accent-colour phrase with `*…*`.
 - Every fact must come from the brief. Never invent a statistic, a quote, or a customer name.
 - No slide numbers in the text; Canva and LinkedIn handle position.
 
 Write the script as a numbered list, each slide with `headline`, optional
-`subline`, and `image`.
+`subline`, and `layout`.
 
 ## Step 2 — Write the post copy
 
@@ -101,7 +102,7 @@ Write `post.md` into the output directory, in exactly this format:
 2. ...
 
 ## Slides
-1. **<headline>** — <subline> _[image: <direction>]_
+1. **<headline>** — <subline> _[layout: <reference label, or generate: direction>]_
 2. ...
 
 ## Carousel

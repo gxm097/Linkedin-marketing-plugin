@@ -1,6 +1,6 @@
 ---
 description: Set up this project for LinkedIn marketing — write marketing-config.md and check the Canva connection
-allowed-tools: Read, Write, Edit, Glob, Bash(uv --version), WebFetch, Skill, mcp__canva__list-brand-kits, mcp__canva__search-brand-templates, mcp__linkedin__get_my_profile, mcp__linkedin-dev__get_my_profile
+allowed-tools: Read, Write, Edit, Glob, Bash(uv --version), WebFetch, Skill, mcp__linkedin__get_my_profile, mcp__linkedin-dev__get_my_profile
 ---
 
 Set up the LinkedIn marketing plugin for this project.
@@ -56,6 +56,10 @@ industry, what we do, differentiators, voice, and 3 content pillars.
 
 ## 3. Check the Canva connection
 
+Canva may be connected under any server name — `canva` from `claude mcp add`,
+or an opaque id if it is the claude.ai Canva connector. Use whichever connected
+server offers `list-brand-kits` (load it with ToolSearch if deferred).
+
 Call `list-brand-kits`.
 
 - **It worked** → the user is on Canva Pro or above. Call `search-brand-templates`
@@ -75,6 +79,18 @@ Call `list-brand-kits`.
   "does not support dynamic client registration".
 
 Either way, don't stop setup over Canva. `generate` mode works for everyone.
+
+**Then pick reference designs** — this is what makes the graphics look like the
+company's designer made them, not a generator. If Canva is connected, call
+`search-designs` sorted newest first and show me the single graphics and
+carousels that look like finished brand posts, with `read-design` thumbnails.
+Ask me which to use as layouts. For each one I pick, record a line under
+**Reference designs**: `<label> — <design id> p<page> (<width>x<height>)`, with a
+short label describing the layout (e.g. "orange headline poster"). Aim for 3–6
+distinct layouts. If I pick any, set **Image approach** to `reference-copy`,
+and fill **Style**, **Brand colors** and **Fonts / overlay text style** from what
+the designs actually use, not from the website. If I have none, leave the list
+blank and set **Image approach** to match the Canva mode.
 
 ## 4. Write the config
 
@@ -192,11 +208,16 @@ LinkedIn carousels are document posts — one multi-page PDF, one page per slide
 
 ## Image
 - **Image skill:** canva-carousel
+- **Image approach:** auto (auto / reference-copy / brand-template / generate)
+- **Reference designs:** (one per line: label — Canva design id p<page> (size). Copied and re-texted each post, never edited in place)
+- **Asset folder:** (Canva folder of real photos and screenshots to use as backgrounds)
+- **Drafts folder:** Claude drafts
 - **Single-image size:** 1200x627
 - **Style:** (e.g., clean modern illustration, flat colors)
 - **Brand colors:** (e.g., #1A73E8, #FFFFFF, #202124)
 - **Fonts / overlay text style:** 
 - **Avoid in images:** real people's faces, fake logos, small text
+- **Look to avoid:** the same layout two posts running, one-word slogan headlines, glowing network meshes, hooded hackers, padlock icons, perfectly symmetrical stock compositions
 
 ## Research settings
 - **Trend window:** last 30 days

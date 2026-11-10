@@ -81,6 +81,21 @@ session and won't find `uv` until then.
 4. **Edit `marketing-config.md`** whenever you like. It holds your voice, your
    three content pillars, your banned words, and your brand colors. This file is
    yours — plugin updates never overwrite it.
+5. **Build the company overview** with `/linkedin-marketing:company-overview`.
+   It reads up to ~40 pages of your website and writes `company-overview.md`:
+   your products and programmes and how they actually run, proof points marked
+   verified or not, your own terminology, a story bank of concrete specifics,
+   and what not to claim. You review it and approve it; the post commands won't
+   run until you have. Run it again with `refresh` when the site changes.
+
+### Why the overview matters
+
+Posts written from a quick skim of a homepage come out generic — every company
+in the industry could have written them. With an approved overview, the writers
+take every company fact from it, and each post has to be built on something
+specific from it: a named product, a programme, a scenario. The weekly research
+then only looks for what's new — industry trends and company news since the
+overview was approved.
 
 ### How the graphics are built
 
@@ -207,10 +222,12 @@ feature off really does stop it.
 | | |
 |---|---|
 | `/linkedin-marketing:linkedin-setup` | Interviews you and writes `marketing-config.md` |
+| `/linkedin-marketing:company-overview` | Reads your whole website and builds the approved `company-overview.md` every post draws from |
 | `/linkedin-marketing:weekly-carousel` | The weekly carousel — research, slides, copy, PDF |
 | `/linkedin-marketing:linkedin-post` | A single-image post, for weeks when a carousel is overkill |
 | `/linkedin-marketing:mention-comments` | Finds posts that mention you, verifies each, comments on the ones you approve |
-| `marketing-researcher` agent | Researches the company and current trends, returns a sourced brief |
+| `company-profiler` agent | Reads the website in depth and drafts the company overview |
+| `marketing-researcher` agent | Researches current trends and company news since the overview, returns a sourced brief |
 | `carousel-writer` agent | Turns the brief into a slide script and post copy |
 | `linkedin-post-creator` agent | Turns the brief into a single-image post package |
 | `mention-finder` agent | Finds posts mentioning you and drafts a reply for each; has no write tool |

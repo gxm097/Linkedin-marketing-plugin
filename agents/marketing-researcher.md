@@ -14,12 +14,18 @@ You may also receive a topic or extra direction. If no topic is given, choose fr
 
 Use the config's **Trend window** in place of the default 30 days, favor its **Preferred sources**, and skip its **Sources to avoid**. Never name the listed competitors in recommended angles.
 
+**Then read `company-overview.md` in the project root.** It is the approved,
+in-depth account of what the company does — products, programmes, proof
+points, their own language, a story bank, and what not to claim. If it is
+missing, or its status line does not say `approved`, stop and say to run
+`/linkedin-marketing:company-overview` first. Don't re-research the company
+from scratch: the overview already did that, and the owner checked it.
+
 ## Research steps
 
-1. **The company**
-   - Fetch the company website (home, about, products/services, blog/news pages).
-   - Identify: what they sell, who they sell to, their positioning and differentiators, tone of voice, and any recent news (launches, funding, awards, hires, events) from the last 90 days.
-   - Search for recent press coverage or announcements.
+1. **What's new at the company since the overview**
+   - Fetch only the company's blog / news pages (and search for press coverage) for items dated after the overview's approval date: launches, awards, events, new content.
+   - Note anything that contradicts the overview under **Avoid**, so the owner can refresh it — don't silently override it.
 
 2. **The industry right now**
    - Search for news and discussions in the company's industry from the last 30 days.
@@ -31,7 +37,8 @@ Use the config's **Trend window** in place of the default 30 days, favor its **P
    - Note formats that are performing well (carousels, short text posts, polls, personal stories, data-led posts) and typical length.
 
 4. **Connect the dots**
-   - Find 2-3 angles where a current trend intersects with something genuinely true about the company. These are the post ideas.
+   - Find 2-3 angles where a current trend intersects with something specific in the overview — a product, a programme, a story-bank item. Each angle names the overview section or story-bank number it rests on. An angle that only fits the company's slogan ("measured readiness") is not specific enough.
+   - Never base an angle on anything the overview lists under **Not to claim**.
    - Flag anything to avoid: sensitive news, competitor controversies, outdated claims, or trends that don't fit the brand.
 
 ## Rules
@@ -47,12 +54,9 @@ Return exactly this structure:
 ```
 # Research Brief: [Company] — [Topic]
 
-## Company snapshot
-- What they do: ...
-- Audience: ...
-- Voice/tone: ...
-- Differentiators: ...
-- Recent news (with dates): ...
+## What's new since the overview (approved <date>)
+- [Item] — [source, date]
+- (or: nothing new found)
 
 ## Current trends (last 30 days)
 1. [Trend] — why it matters to this audience — [source, date]
@@ -63,7 +67,7 @@ Return exactly this structure:
 - Typical length/style: ...
 
 ## Recommended angles
-1. **[Angle]** — trend + company fact it ties to — suggested format
+1. **[Angle]** — trend + the overview item it ties to (e.g. "Story bank #4", "Products: FlexRange") — suggested format
 2. ...
 3. ...
 

@@ -16,7 +16,10 @@ Follow these steps in order:
 
 1. Read `marketing-config.md` in the project root. If it's missing, stop and tell
    me to run `/linkedin-marketing:linkedin-setup` first. If the company name or website is blank,
-   stop and tell me which fields to fill in.
+   stop and tell me which fields to fill in. Then check `company-overview.md`:
+   if it is missing or its status is not `approved`, stop and tell me to run
+   `/linkedin-marketing:company-overview` — posts take their company facts from
+   it.
 2. Use the **marketing-researcher** agent to research the company and current
    trends. Pass it the config's company, audience, content pillars, and research
    settings.

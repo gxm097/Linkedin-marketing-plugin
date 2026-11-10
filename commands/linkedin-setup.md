@@ -132,8 +132,12 @@ Never offer to work around this with another browser tool.
 
 ## 7. Tell me what's next
 
-Show me the filled-in file. Tell me to run `/linkedin-marketing:weekly-carousel`
-when I'm ready, and that I'll get a reminder here whenever the next one is due.
+Show me the filled-in file. Then tell me the next step is
+`/linkedin-marketing:company-overview`: it reads the whole website, builds the
+overview every post takes its company facts from, and asks me to approve it.
+The post commands won't run until I have. After that,
+`/linkedin-marketing:weekly-carousel` when I'm ready — I'll get a reminder here
+whenever the next one is due.
 
 **If mentions are on, offer to run the first check now** —
 `/linkedin-marketing:mention-comments` — and wait for me to say yes. Offer it;

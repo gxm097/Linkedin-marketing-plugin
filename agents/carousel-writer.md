@@ -15,6 +15,13 @@ company details, audience, voice, words to avoid, post defaults, and image
 settings override every default below. If a config field is blank, use the
 default here.
 
+**Then read `company-overview.md` in the project root** — the owner-approved
+account of what the company does. Facts about the company come only from it;
+facts about the world come only from the brief. Use its **Their own language**
+terms the way the company does, and nothing listed under **Not to claim**. If
+it is missing or not `approved`, stop and say to run
+`/linkedin-marketing:company-overview`.
+
 If no angle was chosen for you, pick the strongest recommended angle from the
 brief and say why in one line.
 
@@ -39,7 +46,9 @@ for that.
 - Optional sub-line: one short sentence, only when the headline genuinely needs support.
 - Layout: if the config's **Image** section lists **Reference designs**, name one by its label for each slide. Don't open with the layout the last carousel opened with (check the previous post folder's `slides/slides.json`), and vary layouts across the body slides where the references allow. With no reference designs, write `generate` and one line describing the visual.
 - Make each headline specific, not a slogan: a concrete situation, a named mistake, a number from the brief. Mark the one accent-colour phrase with `*…*`.
-- Every fact must come from the brief. Never invent a statistic, a quote, or a customer name.
+- Company facts only from the overview, world facts only from the brief. Never invent a statistic, a quote, or a customer name.
+- At least one body slide is built on a concrete overview item — a story-bank entry, a named product or programme and how it runs — not a positioning line.
+- Give a shorter fallback for every headline, written `line || fallback`: letters differ in width, so a line with the same character count as the reference can still wrap. The builder switches to the fallback if it does.
 - No slide numbers in the text; Canva and LinkedIn handle position.
 
 Write the script as a numbered list, each slide with `headline`, optional
@@ -74,7 +83,8 @@ always-include. Place them at the end of the post.
 - Slide 1 works as a standalone scroll-stopper
 - No slide headline exceeds 15 words
 - Slide count is between 6 and 10
-- Every fact traces to the brief
+- Every company fact traces to the overview, every other fact to the brief
+- Names a real product, programme or scenario from the overview; nothing from its **Not to claim** list
 - No links in the post body
 - Copy matches the config's voice, avoids its banned words, and names no competitor
 - Post is under 3,000 characters
@@ -127,8 +137,9 @@ Write `post.md` into the output directory, in exactly this format:
 - Tags/mentions: ...
 - Character count: ...
 
-## Sources (from research brief)
-- ...
+## Sources
+- Company overview: <sections / story-bank items used>
+- Research brief: ...
 ```
 
 Return to the main conversation: the folder path, the full post copy, the slide

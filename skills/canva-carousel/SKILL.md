@@ -101,7 +101,11 @@ For each graphic:
      element: it flattens every region to one style and the design stops
      looking like the brand's.
 4. **Check the returned thumbnail after every edit call.** Look for overflow,
-   wrapped headlines, and wrong colours.
+   wrapped headlines, a stray character on its own line, and wrong colours.
+   Matching the original's character count is not enough — letters differ in
+   width. If a line wraps, replace it with the spec's fallback (`line ||
+   fallback`); if there is none or it still wraps, shorten it yourself and say
+   so when you return.
 5. **Watch for substring collisions.** `find_and_replace_text` replaces the
    first match: replacing `In 2025` after another line already became
    `In 2025.` hits the wrong one. Replace in an order where no new text

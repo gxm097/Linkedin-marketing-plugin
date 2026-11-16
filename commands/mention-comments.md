@@ -1,30 +1,33 @@
 ---
 description: Find recent LinkedIn posts that mention the company, verify each one, and comment on the ones I approve
-allowed-tools: Read, Write, Edit, Glob, Task, mcp__linkedin__comment_on_post, mcp__linkedin__search_posts, mcp__linkedin__get_company_posts, mcp__linkedin-dev__comment_on_post, mcp__linkedin-dev__search_posts, mcp__linkedin-dev__get_company_posts
+allowed-tools: Read, Write, Edit, Glob, Task, mcp__plugin_linkedin-marketing_linkedin__comment_on_post, mcp__plugin_linkedin-marketing_linkedin__search_posts, mcp__plugin_linkedin-marketing_linkedin__get_company_posts, mcp__linkedin__comment_on_post, mcp__linkedin__search_posts, mcp__linkedin__get_company_posts, mcp__linkedin-dev__comment_on_post, mcp__linkedin-dev__search_posts, mcp__linkedin-dev__get_company_posts
 ---
 
 Find posts mentioning the company and comment on the ones I approve.
 
 ## 0. Check the comment tool is actually there
 
-The tool is `mcp__linkedin__comment_on_post`, from the LinkedIn server I added
-myself. On a machine with the dev clone registered it is
-`mcp__linkedin-dev__comment_on_post` instead. Use whichever you find, and say
-which one you are using.
+The plugin ships the LinkedIn server, so the tool is normally
+`mcp__plugin_linkedin-marketing_linkedin__comment_on_post` (shown in `/mcp` as
+`plugin:linkedin-marketing:linkedin`). If I added my own server named
+`linkedin` before the plugin shipped one, mine takes precedence and the tool is
+`mcp__linkedin__comment_on_post`; with the dev clone registered it is
+`mcp__linkedin-dev__comment_on_post`. Use whichever you find, and say which
+one you are using.
 
-If **neither** is there, stop — do not fall back to any other browser tool to
+If **none** is there, stop — do not fall back to any other browser tool to
 post a comment. It is one of:
 
-- **The server was never added.** This plugin does not ship it. Point me at the
-  README's **Add the LinkedIn server** step, and give me the line to run in my
-  own terminal:
-  `claude mcp add linkedin --scope user -e UV_HTTP_TIMEOUT=300 -- uvx --from git+https://github.com/gxm097/linkedin-mcp-server@v4.28.0-comment.1 mcp-server-linkedin --transport stdio`
 - **`uv` is not installed**, or was installed after this session started. Tell
   me to run `uv --version`, and to restart Claude Code if it has just been
   installed.
-- **The first run is still going.** `uvx` builds the server from source the
-  first time, which takes minutes. Tell me to run `/mcp` and look at
-  `linkedin`.
+- **The first build timed out.** `uvx` builds the server from source the first
+  time, which takes longer than Claude Code waits for a server to start. Give
+  me this line to run once in my own terminal, then tell me to restart Claude
+  Code:
+  `uvx --from git+https://github.com/gxm097/linkedin-mcp-server@v4.28.0-comment.1 mcp-server-linkedin --help`
+- **The plugin is disabled**, or I'm in claude.ai chat, where local servers
+  don't run. Tell me to check `/mcp` for `plugin:linkedin-marketing:linkedin`.
 
 Note that `comment_on_post` is **not** in the published `mcp-server-linkedin`
 package — every tool there is read-only but for `send_message` and

@@ -14,7 +14,7 @@ off by default, and every comment needs your approval before it is written.
 
 **First, install `uv`** — the plugin's only prerequisite. It runs the reminders
 and the carousel's PDF step, and it supplies Python itself, so there is nothing
-else to install. It also runs the LinkedIn server, if you add one.
+else to install. It also runs the LinkedIn server the plugin ships.
 
 **Windows:** `winget install --id=astral-sh.uv`
 
@@ -63,17 +63,19 @@ session and won't find `uv` until then.
    `http://127.0.0.1:8080/callback` as a second redirect URL. The port in the
    redirect URL and `--callback-port` must match.
 
-2. **Add the LinkedIn server.** Only needed for commenting on posts that
-   mention you; skip it if you just want carousels. In a terminal:
+2. **Build the LinkedIn server once.** The plugin ships it — it starts with
+   every session as `plugin:linkedin-marketing:linkedin` — but the very first
+   start builds it from source, which takes longer than Claude Code waits. Build
+   it ahead of time in a terminal, then restart Claude Code:
 
    ```bash
-   claude mcp add linkedin --scope user -e UV_HTTP_TIMEOUT=300 -- \
-     uvx --from git+https://github.com/gxm097/linkedin-mcp-server@v4.28.0-comment.1 \
-     mcp-server-linkedin --transport stdio
+   uvx --from git+https://github.com/gxm097/linkedin-mcp-server@v4.28.0-comment.1 mcp-server-linkedin --help
    ```
 
-   Name it exactly `linkedin` — the commands and agents are scoped to that name.
-   The first run builds it from source and takes a few minutes.
+   Skip this and setup will do it for you when it signs you in. If you added a
+   server named `linkedin` yourself before 2.6.0, it keeps working and takes
+   precedence over the plugin's — remove it with
+   `claude mcp remove linkedin --scope user` if you'd rather use the plugin's.
 
 3. **Open the project folder** where you want your posts saved, and run
    `/linkedin-marketing:linkedin-setup`. It interviews you, reads your website, checks what your
@@ -187,12 +189,16 @@ the next run knows not to comment on the same post twice.
 
 ### The LinkedIn server
 
-Commenting needs a LinkedIn server, which the plugin does not ship. Add it once,
-in a terminal — see [Add the LinkedIn server](#set-up-once-about-five-minutes).
+The plugin ships its LinkedIn server (`.mcp.json`), so it starts whenever the
+plugin is enabled — in Claude Code, and in Cowork when the session runs on your
+computer. It never runs in claude.ai chat. Build it once ahead of time — see
+[Build the LinkedIn server once](#set-up-once-about-five-minutes).
 
-**Name it exactly `linkedin`**, and **don't install `linkedin-mcp-server`
-separately** — disable it if you already have it. Two copies drive the same
-browser profile and contend for it. The published package also cannot comment on
+Enabling the plugin starts the server, but nothing touches your account until
+you sign in, and nothing is ever posted without your approval of each comment.
+
+**Don't install `linkedin-mcp-server` separately** — disable it if you already
+have it. Two copies drive the same browser profile and contend for it. The published package also cannot comment on
 posts: every tool in it is read-only except `send_message` and
 `connect_with_person`, so it is not a substitute.
 
@@ -271,12 +277,11 @@ so if a run was interrupted mid-export, just run it again.
 and slide script were still written. Fix the connection and re-run, or build the
 slides by hand from the script in `post.md`.
 
-**"The comment tool isn't available"** — the `linkedin` server isn't there. If
-you never added it, see [Add the LinkedIn
-server](#set-up-once-about-five-minutes). If you did, check `uv --version`, and
-restart Claude Code if you installed `uv` after starting it. The first run builds
-the server from source and takes a few minutes — run `/mcp` and look at
-`linkedin`.
+**"The comment tool isn't available"** — run `/mcp` and look at
+`plugin:linkedin-marketing:linkedin`. If it failed, it's almost always the first
+build timing out: run the build line from [Build the LinkedIn server
+once](#set-up-once-about-five-minutes), then restart Claude Code. Also check
+`uv --version`, and restart if you installed `uv` after starting Claude Code.
 
 **A mention was found but not commented on** — the command drops any link it
 can't match to the post it was meant for, which is deliberate; an unverified

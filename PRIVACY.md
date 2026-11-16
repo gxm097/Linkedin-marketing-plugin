@@ -33,10 +33,15 @@ it. Everything below describes what the plugin does on your own machine.
 
 The plugin holds none, and asks for none.
 
-LinkedIn and Canva are reached through MCP servers **you** add yourself with
-`claude mcp add`. Their credentials — a Canva client secret, a LinkedIn browser
-session — are held by those servers and by Claude Code's credential storage. They
-never pass through this plugin, and nothing in this plugin reads your Claude Code
+Canva is reached through a server or connector **you** add yourself. LinkedIn is
+reached through an MCP server the plugin ships (`.mcp.json`): the plugin only
+says how to start it — the open-source `linkedin-mcp-server`, pinned to a tagged
+release — and holds no credentials for it. You sign in to LinkedIn yourself, in
+the browser window the server opens.
+
+Those credentials — a Canva sign-in or client secret, a LinkedIn browser session
+— are held by those servers and by Claude Code's credential storage. They never
+pass through this plugin, and nothing in this plugin reads your Claude Code
 settings file.
 
 ## What is published, and when
